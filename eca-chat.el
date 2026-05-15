@@ -2067,7 +2067,9 @@ If `eca-chat-focus-on-open' is non-nil, the window is selected."
   (let ((window
          (if eca-chat-use-side-window
              ;; Use side window
-             (let* ((side eca-chat-window-side)
+             (let* ((side (if (stringp eca-chat-window-side)
+                              (intern eca-chat-window-side)
+                            eca-chat-window-side))
                     (slot 0)
                     (window-parameters '((no-delete-other-windows . t)))
                     (display-action

@@ -2339,9 +2339,11 @@ CHILD, NAME, DOCSTRING and BODY are passed down."
 
   ;; Show diff blocks in markdown-mode with colors.
   (setq-local markdown-fontify-code-blocks-natively t)
-  ;; Enable gfm-view-mode-like rendering without read-only
-  (setq-local markdown-hide-markup t)
-  (add-to-invisibility-spec 'markdown-markup)
+  ;; Only hide markup if the user explicitly enabled it in their config.
+  ;; Otherwise let the global `markdown-hide-markup' value (default nil)
+  ;; apply so formatting characters are visible.
+  (when markdown-hide-markup
+    (add-to-invisibility-spec 'markdown-markup))
 
   ;; markdown-mode declares keymap, help-echo, and mouse-face as
   ;; font-lock-extra-managed-props, which causes font-lock-ensure to
